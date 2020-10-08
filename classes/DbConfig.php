@@ -5,18 +5,24 @@ class DbConfig {
 	private $_password = '';
 	private $_database = 'php_oop_crud_database';
 
-	protected $connection;
+	protected $conn;
 
 	public function __construct() {
-		if (!isset($this->connection)) {
-			$this->connection = new mysqli($this->_host, $this->_username, $this->_password, $this->_database);
-			if (!$this->connection) {
+		if (!isset($this->conn)) {
+			$this->conn = new PDO(
+				'mysql: host=localhost;dbname=php_oop_crud_database', 'root', '',
+				array(
+					PDO::ATTR_PERSISTENT => true
+				)
+			); 
+
+			if (!$this->conn) {
 				echo 'Cannot connect to database server';
 				exit;
 			}
 		}
 
-		return $this->connection;
+		return $this->conn;
 	}
 }
 ?>
