@@ -5,7 +5,7 @@
 	$crud = new Crud();
 
 	//getting id from url
-	$id = $crud->escape_string($_GET['id']);
+	$id = $_GET['id'];
 
 	//selecting data associated with this particular id
 	$result = $crud->getData("SELECT * FROM users WHERE id=$id");

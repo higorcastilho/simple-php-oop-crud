@@ -21,7 +21,6 @@ class DbConfig {
 				exit;
 			}
 		}
-
 		return $this->conn;
 	}
 }

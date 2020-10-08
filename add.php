@@ -12,9 +12,10 @@
 	$validation = new Validation();
 
 	if (isset($_POST['Submit'])) {
-		$name = $crud->escape_string($_POST['name']);
-		$age = $crud->escape_string($_POST['age']);
-		$email = $crud->escape_string($_POST['email']);
+		$name = $_POST['name'];
+		$age = $_POST['age'];
+		$email = $_POST['email'];
+		$query = 'INSERT INTO users(name, age, email) VALUES(:name, :age, :email)';
 
 		$msg = $validation->check_empty($_POST, array('name', 'age', 'email'));
 		$check_age = $validation->is_age_valid($_POST['age']);
@@ -33,8 +34,8 @@
 		else {
 			//if all the fields are filled (not empty)
 			
-			//inser data to database
-			$result = $crud->execute("INSERT INTO users(name, age, email) VALUES('$name', '$age', '$email')");
+			//insert data to database
+			$result = $crud->execute($query, $name, $age, $email, $optional);
 
 			//display success message
 			echo "<font color='green'>Data added successfully";

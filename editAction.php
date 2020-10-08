@@ -7,11 +7,13 @@
 	$validation = new Validation();
 
 	if (isset($_POST['update'])) {
-		$id = $crud->escape_string($_POST['id']);
+		$id = $_POST['id'];
 
-		$name = $crud->escape_string($_POST['name']);
-		$age = $crud->escape_string($_POST['age']);
-		$email = $crud->escape_string($_POST['email']);
+		$name = $_POST['name'];
+		$age = $_POST['age'];
+		$email = $_POST['email'];
+		$query = "UPDATE users SET name=:name, age=:age, email=:email WHERE id=:id";
+		$optional = array("id" => $id);
 	
 		$msg = $validation->check_empty($_POST, array('name', 'age', 'email'));
 		$check_age = $validation->is_age_valid($_POST['age']);
@@ -28,7 +30,7 @@
 			echo 'Please provide proper email.';
 		} else {
 			//updating the table
-			$result = $crud->execute("UPDATE users SET name='$name', age='$age', email='$email' WHERE id=$id");
+			$result = $crud->execute($query, $name, $age, $email, $optional);
 
 			//redirecting to the display page. In our case, it is index.php
 			header("Location: index.php");
