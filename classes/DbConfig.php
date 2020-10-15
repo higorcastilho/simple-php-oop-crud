@@ -7,10 +7,11 @@ class DbConfig {
 
 	protected $conn;
 
-	public function __construct() {
+	protected function __construct() {
 		if (!isset($this->conn)) {
+			$dsn = 'mysql: host=' . $this->_host . '; dbname=' . $this->_database;
 			$this->conn = new PDO(
-				'mysql: host=localhost;dbname=php_oop_crud_database', 'root', '',
+				$dsn, $this->_username, $this->_password,
 				array(
 					PDO::ATTR_PERSISTENT => true
 				)
